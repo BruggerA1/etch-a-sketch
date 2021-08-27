@@ -9,7 +9,6 @@
 
 # OPTIONS:
 # color-picker
-# grid-size
 # clear button
 # ?? save image ??
 # brush-size
