@@ -1,7 +1,17 @@
 # ETCH-A-SKETCH
-# By Brugger Anderson for The Odin Project
-#
+# By Brugger Anderson
+# Odin Project - Javascript Project
+
 # TO DO:
-# 1) Everything
-#
-#
+# 1) HTML / CSS Layout
+# 2) JS
+# 3) Paid DLC / Season Pass
+
+# OPTIONS:
+# color-picker
+# grid-size
+# clear button
+# ?? save image ??
+# brush-size
+# rainbow colors
+# shading
