@@ -1,94 +1,234 @@
-/* Global */
-* {
-	margin: 0;
-	padding: 0;
-	
-	/* temp */
-	border: dashed black 1px;
-	border-radius: 8px;
+/* Global Settings */
+:root {
+	/* Global Variables*/
+	--primaryWhite: rgba(255, 255, 255, 0.9);
+	--secondaryWhite: rgba(255, 255, 255, 0.4);
+	--primaryBlack: rgba(0, 0, 0, 0.8);
+	--secondaryBlack: rgba(0, 0, 0, 0.3);
+	background-color: var(--primaryBlack);
+	height: 100vh;
 }
 
-.flex{
+* {
+	box-sizing: border-box;
+	padding: 0px;
+	margin: 0px;
+
+	/* temp */
+	border: dashed white 0px;
+	border-radius: 2px;
+}
+
+/* Primary Classes */
+.flex {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 }
 
-body {
-	height: 98.5vh;
+.flex-row {
+	flex-direction: row;
+}
+
+.font {
+	font-family: 'Audiowide', cursive;
+	color: var(--primaryWhite);
+	-webkit-text-stroke: var(--primaryBlack) 1px;
+	filter: drop-shadow(1px 1px 4px var(--primaryBlack));
+}
+
+.pointer{
+	cursor: pointer;
 }
 
 /* Containers */
-.container{
-	width: 100%;
+.container {
+	width: 98vw;
 }
 
-#header-container{
-	height: 5%;
+#header-container {
+	height: 10vh;
 }
 
-#content-container{
-	height: 90%;
+#content-container {
+	height: 80vh;
 }
 
-#grid-container{
-	height: 85%;
+#footer-container {
+	height: 10vh;
+	justify-content: space-between;
+	padding: 2vh 2vw;
+}
+
+/* Content Containers */
+#options-container {
+	height: 20%;
+	justify-content: space-evenly;
+}
+
+#grid-container {
+	height: 80%;
 	display: grid;
+	border: solid var(--primaryBlack) 4px;
+	border-radius: 10px;
 }
 
-#options-container{
-	height: 15%;
-}	
-
-#footer-container{
-	height: 5%;
+/* Header */
+#header-logo {
+	font-size: 8vh;
 }
 
-/* Grid Style*/
-.grid-cell{
-	border: solid 1px;
+/* Options */
+#options-color{
+	width: 15vw;
 }
-
-/* Grid Slider*/
+#options-brushes{
+	justify-content: space-evenly;
+	width: 45vw;
+}
 #options-slider{
-	flex-direction: row;
+	width: 30vw;
+}
+/* Color Picker */
+#options-color-picker {
+	width: 64px;
+	height: 64px;
+	background: none;
+	transition: 200ms;
+}
+
+#options-color-picker:hover {
+	width: 72px;
+	height: 72px;
+
+}
+
+
+#options-color-picker::-webkit-color-swatch {
+	border: solid 4px;
+	border-radius: 50%;
+}
+
+/* Brushes (Radio/Icons) */
+.radio{
+	height: 48px;
+	width: 48px;
+	position: absolute;
+	opacity: 00%;
+	z-index: 1;
+}
+
+.icon{
+	transform: scale(1.6);
+	background-color: var(--secondaryWhite);
+	border: solid 2px var(--primaryBlack);
+	border-radius: 6px;
+	transition: 200ms;
+}
+
+.radioChecked {
+	transform: scale(2);
+	background-color: var(--primaryWhite);
+	filter: drop-shadow(0 0 4px var(--primaryBlack));
+}
+
+/* Slider */
+#options-slider-range{
+	width: 100px;
+	height: 3vh;
 }
 
 #options-slider-label,
 #options-slider-text{
-	text-align: center;
-	line-height: 2em;
-	width: 2em;
+	font-size: 16pt;
 }
 
-#options-slider-label{
-	width: 5em;
+/* Grid */
+.grid-cell{
+	background-color: var(--primaryWhite);
+	border: solid 1px;
+	border-radius: 4px;
+}
+
+.grid-cell:hover{
+	border: solid var(--primaryBlack);
+}
+.filled{
+}
+
+
+/* Footer */
+#reset-grid{
+	background-color: var(--secondaryWhite);
+	border: solid var(--primaryBlack) 4px;
+	border-radius: 8px;
+	padding: 0 4px 0 0 ;
+	transition: 200ms;
+}
+
+#reset-grid:hover{
+	transform: scale(1.05);
+	filter: drop-shadow(0 0 2px var(--secondaryBlack));
+}
+
+#reset-icon,
+#reset-text {
+	user-select: none;
 }
 
 
 /* Mobile First => Desktop Second */
-@media screen and (min-width: 800px){
-	#content-container{
+@media screen and (min-width: 800px) {
+	/* Containers */
+	#content-container {
 		flex-direction: row;
 	}
 
-	#header-container{
-		height:10%;
-	}
-
-	#content-container{
-		height: 85%;
-	}
-
-	#grid-container{
+	#options-container {
+		flex-direction: column;
 		height: 100%;
-		width: 80%;
+		width: 15%;
 	}
 
-	#options-container{
+	#grid-container {
 		height: 100%;
-		width: 20%;
+		width: 85%;
+	}
+	/* Options Containers */
+	#options-color{
+		height: 30%;
+	}
+	
+	#options-brushes {
+		flex-direction: column;
+		height: 50%;
+		width: 100%;
 	}
 
+	#options-slider {
+		height: 20%;
+		width: 100%;
+	}
+
+	/* Color Picker */
+	#options-color-picker {
+		height: 90px;
+		width: 90px;
+	}
+
+	#options-color-picker:hover {
+		height: 100px;
+		width: 100px;
+	}
+
+	/* Range Slider */
+	#options-slider-range {
+		height: 5vh;
+	}
+
+	#options-slider-label,
+	#options-slider-text {
+		font-size: 12pt;
+	}
 }

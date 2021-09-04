@@ -3,14 +3,6 @@
 # Odin Project - Javascript Project
 
 # TO DO:
-# 1) HTML / CSS Layout
-# 2) JS
-# 3) Paid DLC / Season Pass
-
-# OPTIONS:
-# color-picker
-# clear button
-# ?? save image ??
-# brush-size
-# rainbow colors
-# shading
+# Refine HTML/CSS/JS
+# 1) Shading/Rainbow/RandomColor Options
+# 2) Save Image

@@ -1,30 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<title>bruGGrid</title>
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<link rel="stylesheet" href="style.css" />
+	<title>bruGGrid</title>
 
-		<script src="script.js" defer></script>
-	</head>
-	<body class="flex">
-		<header id="header-container" class="container"></header>
+	<!-- CSS -->
+	<link rel="stylesheet" href="style.css" />
 
-		<div id="content-container" class="container flex">
-			<div id="options-container" class="container flex">
-				<div id="options-slider" class="flex">
-					<span id="options-slider-label">Grid Size</span>
-					<input type="range" id="options-slider-range" />
-					<span id="options-slider-text"></span>
+	<!-- Google Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet" />
+	<!-- Google Icons -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+	<!-- JS -->
+	<script src="script.js" defer></script>
+</head>
+
+<body class="flex">
+	<!-- Header -->
+	<header id="header-container" class="container flex">
+		<span id="header-logo" class="font">bruGGrid</span>
+	</header>
+
+	<!-- Main Content -->
+	<div id="content-container" class="container flex">
+		<!-- Options -->
+		<div id="options-container" class="container flex flex-row">
+			<!-- Color Picker -->
+			<div id="options-color" class="flex">
+				<input type="color" id="options-color-picker" class="pointer" />
+			</div>
+			<!--- Brush Options -->
+			<div id="options-brushes" class="flex flex-row">
+				<div id="radio-pencil" class="flex">
+					<input type="radio" name="radio-brush" id="radio-pencil-button" class="radio pointer" />
+					<span id="radio-pencil-label" class="material-icons icon font pointer">edit</span>
+				</div>
+				<div id="radio-paint" class="flex">
+					<input type="radio" name="radio-brush" id="radio-paint-button" class="radio pointer" />
+					<span id="radio-paint-label" class="material-icons icon font pointer">brush</span>
+				</div>
+				<div id="radio-clear" class="flex">
+					<input type="radio" name="radio-brush" id="radio-clear-button" class="radio pointer" />
+					<span id="radio-clear-label" class="material-icons icon font pointer">clear</span>
 				</div>
 			</div>
-			<div id="grid-container" class="container"></div>
+			<!-- Range -->
+			<div id="options-slider" class="flex">
+				<span id="options-slider-label" class="font">Grid Size</span>
+				<input type="range" name="options-slider-range" id="options-slider-range" class="pointer" />
+				<span id="options-slider-text" class="font"></span>
+			</div>
 		</div>
 
-		<footer id="footer-container" class="container"></footer>
-	</body>
+		<!-- Grid -->
+		<div id="grid-container" class="container"></div>
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer-container" class="container flex flex-row">
+		<div id="reset-grid" class="flex flex-row pointer">
+			<span id="reset-icon" class="material-icons font pointer">delete</span>
+			<span id="reset-text" class="font">RESET</span>
+		</div>
+		<span id="bruGG" class="font">
+			A
+			<a id="bruGG-link" class="font" href="http://www.bru.gg" target="_blank">bru.GG</a>
+			Production
+		</span>
+	</footer>
+</body>
+
 </html>
