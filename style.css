@@ -220,12 +220,12 @@
 	#options-container {
 		flex-direction: column;
 		height: 100%;
-		width: 15%;
+		width: 10%;
 	}
 
 	#grid-container {
 		height: 100%;
-		width: 85%;
+		width: 90%;
 	}
 	/* Options Containers */
 
@@ -243,24 +243,24 @@
 
 	/* Color Picker */
 	#options-color-picker {
-		height: 70px;
-		width: 70px;
+		height: 120px;
+		width: 120px;
 	}
 
 	#options-color-picker:hover {
-		height: 80px;
-		width: 80px;
+		height: 130px;
+		width: 130px;
 	}
 
 	/* Range Slider */
 	#options-slider-range {
 		height: 5vh;
-		width: 80%;
+		width: 60%;
 	}
 
 	#options-slider-label,
 	#options-slider-text {
-		font-size: 10pt;
+		font-size: 14pt;
 	}
 
 
@@ -277,19 +277,19 @@
 
 	#mode-shade,
 	#mode-rainbow{
-		transform: scale(1);
+		transform: scale(1.8);
 	}
 
 	#mode-text{
 		width: 100%;
-		font-size: 10pt;
+		font-size: 14pt;
 	}
 
 	.icon{
-		transform: scale(1.2);
+		transform: scale(1.8);
 	}
 
 	.radioChecked{
-		transform: scale(1.6);
+		transform: scale(2);
 	}
 }
