@@ -28,14 +28,26 @@
 }
 
 .flex-row {
+	display: flex;
 	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	padding: 2%;
 }
 
-.font {
+.theme {
 	font-family: 'Audiowide', cursive;
 	color: var(--primaryWhite);
 	-webkit-text-stroke: var(--primaryBlack) 1px;
 	filter: drop-shadow(1px 1px 4px var(--primaryBlack));
+}
+
+.icon{
+	transform: scale(1.2);
+	background-color: var(--secondaryWhite);
+	border: solid 2px var(--primaryBlack);
+	border-radius: 6px;
+	transition: 200ms;
 }
 
 .pointer{
@@ -44,71 +56,75 @@
 
 /* Containers */
 .container {
-	width: 98vw;
+	width: 100vw;
 }
 
 #header-container {
 	height: 10vh;
-}
-
-#content-container {
-	height: 85vh;
+	border-bottom: solid var(--primaryWhite);
 }
 
 #footer-container {
-	height: 5vh;
-	justify-content: space-between;
-	padding: 2vh 2vw;
+	height: 10vh;
+	border-top: solid var(--primaryWhite);
+
+}
+
+#content-container {
+	height: 80vh;
 }
 
 /* Content Containers */
 #options-container {
-	height: 15%;
-	justify-content: space-between;
+	height: calc(80vh * 0.20);
 }
 
 #grid-container {
-	height: 85%;
 	display: grid;
+	height: calc(80vh * 0.8);
 	border: solid var(--primaryBlack) 4px;
 	border-radius: 10px;
 }
 
+
 /* Header */
 #header-logo {
-	font-size: 8vh;
+	font-size: 48px;
 }
 
-/* Options */
+/* Options Containers */
+#options-modes {
+	height: calc((80vh * 0.2) * 0.9);
+	width: 15vw;
+	justify-content: space-evenly;
+}
 
-#options-color{
-	width: 12vw;
+#options-color {
+	width: 25vw;
 }
 
 #options-brushes {
-	justify-content: space-evenly;
-	width: 35vw;
+	width: 40vw;
+	justify-content: space-around;
 }
 
-#options-slider{
-	width: 20vw;
+#options-slider {
+	width: 30vw;
+
 }
 
 
 /* Color Picker */
 #options-color-picker {
-	width: 72px;
-	height: 72px;
+	width: 64px;
+	height: 64px;
 	background: none;
 	transition: 200ms;
 }
 
 #options-color-picker:hover {
-	width: 84px;
-	height: 84px;
-
+	transform: scale(1.1);
 }
-
 
 #options-color-picker::-webkit-color-swatch {
 	border: solid 4px;
@@ -117,54 +133,24 @@
 
 /* Brushes (Radio/Icons) */
 .radio{
-	height: 36px;
-	width: 36px;
+	height: 34px;
+	width: 34px;
 	position: absolute;
 	opacity: 0%;
 	z-index: 1;
 }
 
-.icon{
-	transform: scale(1.4);
-	background-color: var(--secondaryWhite);
-	border: solid 2px var(--primaryBlack);
-	border-radius: 6px;
-	transition: 200ms;
-}
-
 .radioChecked {
-	transform: scale(1.6);
+	transform: scale(1.4);
 	background-color: var(--primaryWhite);
 	filter: drop-shadow(0 0 4px var(--primaryBlack));
 }
 
-/* Modes */
-#options-modes-container{
-	height: 100%;
-	justify-content: space-around;
-}
-
-#mode-shade,
-#mode-rainbow{
-	transform: scale(1.2);
-}
-
-#options-modes{
-	height: 80%;
-	justify-content: space-evenly;
-}
-
-#mode-text{
-	height: 20%;
-	font-size: 10pt;
-}
-
-
 
 /* Slider */
 #options-slider-range{
-	width: 75px;
-	height: 3vh;
+	width: 20vw;
+	height: 5vh;
 }
 
 #options-slider-label,
@@ -195,8 +181,7 @@
 }
 
 #reset-grid:hover{
-	transform: scale(1.05);
-	filter: drop-shadow(0 0 2px var(--secondaryBlack));
+	transform: scale(1.1);
 }
 
 #reset-icon,
@@ -219,43 +204,49 @@
 	
 	#options-container {
 		flex-direction: column;
-		height: 100%;
-		width: 10%;
+		height: 80vh;
+		width: calc(100vw * 0.15);
+		justify-content: space-around;
 	}
 
 	#grid-container {
-		height: 100%;
-		width: 90%;
+		height: 80vh;
+		width: calc(100vw * 0.85);
 	}
-	/* Options Containers */
 
-	
+	/* Options Containers */
+	#options-modes{
+		flex-direction: row;
+		height: calc(80vh * 0.10);
+		width: calc(100vw * 0.15);
+	}
+
+	#options-color {
+		height: calc(80vh * 0.15);
+		width: calc(100vw * 0.15);
+	}
+
 	#options-brushes {
 		flex-direction: column;
-		height: 40%;
-		width: 100%;
+		height: calc(80vh * 0.40);
+		width: calc(100vw * 0.15);
 	}
 
 	#options-slider {
-		height: 20%;
-		width: 100%;
+		height: calc(80vh * 0.2);
+		width: calc(100vw * 0.15);
 	}
 
 	/* Color Picker */
 	#options-color-picker {
-		height: 120px;
-		width: 120px;
-	}
-
-	#options-color-picker:hover {
-		height: 130px;
-		width: 130px;
+		height: 72px;
+		width: 72px;
 	}
 
 	/* Range Slider */
 	#options-slider-range {
 		height: 5vh;
-		width: 60%;
+		width: calc((100vw * 0.15) * 0.6);
 	}
 
 	#options-slider-label,
@@ -263,33 +254,4 @@
 		font-size: 14pt;
 	}
 
-
-	/* MODES */
-	#options-modes-container{
-		width: 100%;
-		height: 15%;
-	}
-
-	#options-modes{
-		flex-direction: row;
-		width: 100%;
-	}
-
-	#mode-shade,
-	#mode-rainbow{
-		transform: scale(1.8);
-	}
-
-	#mode-text{
-		width: 100%;
-		font-size: 14pt;
-	}
-
-	.icon{
-		transform: scale(1.8);
-	}
-
-	.radioChecked{
-		transform: scale(2);
-	}
 }

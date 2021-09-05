@@ -142,6 +142,7 @@ function togglePaintBrush(e) {
 // Event Listeners
 sliderRange.addEventListener('change', updateGrid);
 
+sliderRange.addEventListener('change', updateSliderText);
 sliderRange.addEventListener('mousemove', updateSliderText);
 sliderRange.addEventListener('touchmove', updateSliderText);
 
