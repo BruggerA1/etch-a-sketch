@@ -52,23 +52,23 @@
 }
 
 #content-container {
-	height: 80vh;
+	height: 85vh;
 }
 
 #footer-container {
-	height: 10vh;
+	height: 5vh;
 	justify-content: space-between;
 	padding: 2vh 2vw;
 }
 
 /* Content Containers */
 #options-container {
-	height: 20%;
-	justify-content: space-evenly;
+	height: 15%;
+	justify-content: space-between;
 }
 
 #grid-container {
-	height: 80%;
+	height: 85%;
 	display: grid;
 	border: solid var(--primaryBlack) 4px;
 	border-radius: 10px;
@@ -80,27 +80,32 @@
 }
 
 /* Options */
+
 #options-color{
-	width: 15vw;
+	width: 12vw;
 }
-#options-brushes{
+
+#options-brushes {
 	justify-content: space-evenly;
-	width: 45vw;
+	width: 35vw;
 }
+
 #options-slider{
-	width: 30vw;
+	width: 20vw;
 }
+
+
 /* Color Picker */
 #options-color-picker {
-	width: 64px;
-	height: 64px;
+	width: 72px;
+	height: 72px;
 	background: none;
 	transition: 200ms;
 }
 
 #options-color-picker:hover {
-	width: 72px;
-	height: 72px;
+	width: 84px;
+	height: 84px;
 
 }
 
@@ -112,15 +117,15 @@
 
 /* Brushes (Radio/Icons) */
 .radio{
-	height: 48px;
-	width: 48px;
+	height: 36px;
+	width: 36px;
 	position: absolute;
-	opacity: 00%;
+	opacity: 0%;
 	z-index: 1;
 }
 
 .icon{
-	transform: scale(1.6);
+	transform: scale(1.4);
 	background-color: var(--secondaryWhite);
 	border: solid 2px var(--primaryBlack);
 	border-radius: 6px;
@@ -128,20 +133,44 @@
 }
 
 .radioChecked {
-	transform: scale(2);
+	transform: scale(1.6);
 	background-color: var(--primaryWhite);
 	filter: drop-shadow(0 0 4px var(--primaryBlack));
 }
 
+/* Modes */
+#options-modes-container{
+	height: 80%;
+	justify-content: space-around;
+}
+
+#mode-shade,
+#mode-rainbow{
+	transform: scale(1.2);
+}
+
+#options-modes{
+	height: 80%;
+	justify-content: space-around;
+}
+
+#mode-text{
+	height: 20%;
+	font-size: 10pt;
+}
+
+
+
 /* Slider */
 #options-slider-range{
-	width: 100px;
+	width: 75px;
 	height: 3vh;
 }
 
 #options-slider-label,
 #options-slider-text{
-	font-size: 16pt;
+	text-align: center;
+	font-size: 12pt;
 }
 
 /* Grid */
@@ -153,8 +182,6 @@
 
 .grid-cell:hover{
 	border: solid var(--primaryBlack);
-}
-.filled{
 }
 
 
@@ -183,8 +210,13 @@
 	/* Containers */
 	#content-container {
 		flex-direction: row;
+		height: 80vh;
 	}
 
+	#footer-container{
+		height: 10vh;
+	}
+	
 	#options-container {
 		flex-direction: column;
 		height: 100%;
@@ -196,13 +228,11 @@
 		width: 85%;
 	}
 	/* Options Containers */
-	#options-color{
-		height: 30%;
-	}
+
 	
 	#options-brushes {
 		flex-direction: column;
-		height: 50%;
+		height: 40%;
 		width: 100%;
 	}
 
@@ -213,22 +243,53 @@
 
 	/* Color Picker */
 	#options-color-picker {
-		height: 90px;
-		width: 90px;
+		height: 70px;
+		width: 70px;
 	}
 
 	#options-color-picker:hover {
-		height: 100px;
-		width: 100px;
+		height: 80px;
+		width: 80px;
 	}
 
 	/* Range Slider */
 	#options-slider-range {
 		height: 5vh;
+		width: 80%;
 	}
 
 	#options-slider-label,
 	#options-slider-text {
-		font-size: 12pt;
+		font-size: 10pt;
+	}
+
+
+	/* MODES */
+	#options-modes-container{
+		width: 100%;
+		height: 15%;
+	}
+
+	#options-modes{
+		flex-direction: row;
+		width: 100%;
+	}
+
+	#mode-shade,
+	#mode-rainbow{
+		transform: scale(1);
+	}
+
+	#mode-text{
+		width: 100%;
+		font-size: 10pt;
+	}
+
+	.icon{
+		transform: scale(1.2);
+	}
+
+	.radioChecked{
+		transform: scale(1.6);
 	}
 }

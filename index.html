@@ -32,11 +32,22 @@
 	<div id="content-container" class="container flex">
 		<!-- Options -->
 		<div id="options-container" class="container flex flex-row">
-			<!-- Color Picker -->
+
+			<!--MODES-->
+			<div id="options-modes-container" class="flex">
+				<span id="mode-text" class="flex font">MODE</span>
+				<div id="options-modes" class="flex">
+					<span id="mode-shade" class="material-icons icon font pointer">layers</span>
+					<span id="mode-rainbow" class="material-icons icon font pointer">looks</span>
+				</div>
+			</div>
+
+			<!--COLOR PICKER-->
 			<div id="options-color" class="flex">
 				<input type="color" id="options-color-picker" class="pointer" />
 			</div>
-			<!--- Brush Options -->
+
+			<!--BRUSHES-->
 			<div id="options-brushes" class="flex flex-row">
 				<div id="radio-pencil" class="flex">
 					<input type="radio" name="radio-brush" id="radio-pencil-button" class="radio pointer" />
@@ -51,7 +62,8 @@
 					<span id="radio-clear-label" class="material-icons icon font pointer">clear</span>
 				</div>
 			</div>
-			<!-- Range -->
+
+			<!--RANGE-->
 			<div id="options-slider" class="flex">
 				<span id="options-slider-label" class="font">Grid Size</span>
 				<input type="range" name="options-slider-range" id="options-slider-range" class="pointer" />
@@ -60,7 +72,8 @@
 		</div>
 
 		<!-- Grid -->
-		<div id="grid-container" class="container"></div>
+		<div id="grid-container" class="container">
+		</div>
 	</div>
 
 	<!-- Footer -->

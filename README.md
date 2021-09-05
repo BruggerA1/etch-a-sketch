@@ -5,4 +5,3 @@
 # TO DO:
 # Refine HTML/CSS/JS
 # 1) Shading/Rainbow/RandomColor Options
-# 2) Save Image

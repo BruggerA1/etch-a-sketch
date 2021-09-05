@@ -18,8 +18,7 @@ const eraserButtonIcon = document.getElementById('radio-clear-label');
 
 const resetButton = document.getElementById('reset-grid');
 
-let currentBrush, currentColor, gridCells;
-
+let currentBrush, currentColor, gridCells, toggleOn;
 
 // Declare Functions
 function makeGrid(n) {
@@ -47,7 +46,7 @@ function updateSliderText(e) {
 function updateGrid(e) {
 	clearGrid();
 	makeGrid(e.target.value);
-	toggle = false;
+	toggleOn = false;
 }
 
 function togglePaint() {
@@ -78,7 +77,7 @@ function updateRadio(e) {
 	currentBrush = checkRadio();
 	updateColor(currentBrush);
 	updateBrush();
-	toggle = true;
+	toggleOn = true;
 	togglePaintBrush(e);
 }
 
@@ -123,26 +122,22 @@ function updateBrush() {
 	}
 }
 
-let toggle = false;
 
 function togglePaintBrush(e) {
-	if (toggle == false) {
+	if (toggleOn == false) {
 		e.target.style.backgroundColor = currentColor;
 		gridCells.forEach(cell => {
 			cell.addEventListener('mouseover', fillGrid);
 		});
-		toggle = true;
+		toggleOn = true;
 	}
 	else {
 		gridCells.forEach(cell => {
 			cell.removeEventListener('mouseover', fillGrid);
 		});
-		toggle = false;
+		toggleOn = false;
 	}
 }
-
-
-
 
 // Event Listeners
 sliderRange.addEventListener('change', updateGrid);
@@ -163,6 +158,7 @@ colorPicker.addEventListener('change', updateColorPicker);
 resetButton.addEventListener('click', resetGrid);
 
 // Initialize GUI
+toggleOn = false;
 sliderRange.min = 2;
 sliderRange.max = 64;
 sliderRange.value = 8;
