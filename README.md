@@ -4,4 +4,4 @@
 
 # TO DO:
 # Refine HTML/CSS/JS
-# 1) Shading/Rainbow/RandomColor Options
+# 1) Shading/Rainbow Backend

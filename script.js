@@ -18,7 +18,15 @@ const eraserButtonIcon = document.getElementById('radio-clear-label');
 
 const resetButton = document.getElementById('reset-grid');
 
-let currentBrush, currentColor, gridCells, toggleOn;
+const shadeCheckbox = document.getElementById('mode-shade-checkbox');
+const shadeIcon = document.getElementById('mode-shade-button');
+
+const rainbowCheckbox = document.getElementById('mode-rainbow-checkbox');
+const rainbowIcon = document.getElementById('mode-rainbow-button');
+
+const modes = ['standard', 'shade', 'rainbow'];
+
+let currentBrush, currentColor, gridCells, toggleOn, mode;
 
 // Declare Functions
 function makeGrid(n) {
@@ -26,13 +34,13 @@ function makeGrid(n) {
 	for (let i = 0; i < num; i++) {
 		let gridCell = document.createElement('div');
 		gridCell.classList.add('grid-cell', 'pointer');
-		gridCell.addEventListener('click', fillGrid)
+		gridCell.addEventListener('click', fillGrid);
 		gridContainer.appendChild(gridCell);
 	}
 	gridContainer.style.gridTemplateColumns = `repeat(${n},1fr)`;
 	gridContainer.style.gridTemplateRows = `repeat(${n},1fr)`;
 
-	updateBrush()
+	updateBrush();
 }
 
 function clearGrid() {
@@ -69,7 +77,11 @@ function toggleEraser() {
 
 function checkRadio() {
 	let radios = [pencilButtonRadio, paintButtonRadio, eraserButtonRadio];
-	radios.forEach(radio => { if (radio.checked === true) { selectedRadio = radio; } });
+	radios.forEach((radio) => {
+		if (radio.checked === true) {
+			selectedRadio = radio;
+		}
+	});
 	return selectedRadio.id;
 }
 
@@ -82,8 +94,9 @@ function updateRadio(e) {
 }
 
 function updateColor(brush) {
-	(brush === eraserButtonRadio.id) ? currentColor =
-		'#e6e6e6' : currentColor = colorPicker.value;
+	brush === eraserButtonRadio.id
+		? (currentColor = '#e6e6e6')
+		: (currentColor = colorPicker.value);
 }
 
 function updateColorPicker() {
@@ -104,39 +117,59 @@ function updateBrush() {
 	switch (currentBrush) {
 		case 'radio-pencil-button':
 		case 'radio-clear-button':
-			gridCells.forEach(cell => {
+			gridCells.forEach((cell) => {
 				cell.addEventListener('click', fillGrid);
 			});
-			gridCells.forEach(cell => {
+			gridCells.forEach((cell) => {
 				cell.removeEventListener('click', togglePaintBrush);
 			});
 			break;
 		case 'radio-paint-button':
-			gridCells.forEach(cell => {
+			gridCells.forEach((cell) => {
 				cell.removeEventListener('click', fillGrid);
 			});
-			gridCells.forEach(cell => {
+			gridCells.forEach((cell) => {
 				cell.addEventListener('click', togglePaintBrush);
 			});
 			break;
 	}
 }
 
-
 function togglePaintBrush(e) {
 	if (toggleOn == false) {
 		e.target.style.backgroundColor = currentColor;
-		gridCells.forEach(cell => {
+		gridCells.forEach((cell) => {
 			cell.addEventListener('mouseover', fillGrid);
 		});
 		toggleOn = true;
-	}
-	else {
-		gridCells.forEach(cell => {
+	} else {
+		gridCells.forEach((cell) => {
 			cell.removeEventListener('mouseover', fillGrid);
 		});
 		toggleOn = false;
 	}
+}
+
+function checkShadeBox() {
+	rainbowCheckbox.checked = false;
+	rainbowIcon.classList.remove('boxChecked');
+	shadeCheckbox.checked ? shadeIcon.classList.add('boxChecked')
+	: shadeIcon.classList.remove('boxChecked');
+	updateMode();
+}
+
+function checkRainbowBox() {
+	shadeCheckbox.checked = false;
+	shadeIcon.classList.remove('boxChecked');
+	rainbowCheckbox.checked ? rainbowIcon.classList.add('boxChecked')
+	: rainbowIcon.classList.remove('boxChecked');
+	updateMode();
+}
+
+function updateMode() {
+	mode = (shadeCheckbox.checked) ? modes[1]
+	: (rainbowCheckbox.checked) ? modes[2]
+	: modes[0];
 }
 
 // Event Listeners
@@ -158,6 +191,9 @@ colorPicker.addEventListener('change', updateColorPicker);
 
 resetButton.addEventListener('click', resetGrid);
 
+shadeCheckbox.addEventListener('click', checkShadeBox);
+rainbowCheckbox.addEventListener('click', checkRainbowBox);
+
 // Initialize GUI
 toggleOn = false;
 sliderRange.min = 2;
@@ -172,6 +208,12 @@ pencilButtonRadio.checked = true;
 pencilButtonIcon.classList.add('radioChecked');
 
 currentColor = colorPicker.value;
-currentBrush - pencilButtonRadio.id
+currentBrush - pencilButtonRadio.id;
+
+mode = modes[0];
 
 makeGrid(sliderRange.value);
+
+// testing
+
+

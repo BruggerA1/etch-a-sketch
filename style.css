@@ -42,7 +42,7 @@
 	filter: drop-shadow(1px 1px 4px var(--primaryBlack));
 }
 
-.icon{
+.icon {
 	transform: scale(1.2);
 	background-color: var(--secondaryWhite);
 	border: solid 2px var(--primaryBlack);
@@ -50,7 +50,7 @@
 	transition: 200ms;
 }
 
-.pointer{
+.pointer {
 	cursor: pointer;
 }
 
@@ -67,7 +67,6 @@
 #footer-container {
 	height: 10vh;
 	border-top: solid var(--primaryWhite);
-
 }
 
 #content-container {
@@ -76,7 +75,7 @@
 
 /* Content Containers */
 #options-container {
-	height: calc(80vh * 0.20);
+	height: calc(80vh * 0.2);
 }
 
 #grid-container {
@@ -85,7 +84,6 @@
 	border: solid var(--primaryBlack) 4px;
 	border-radius: 10px;
 }
-
 
 /* Header */
 #header-logo {
@@ -110,9 +108,22 @@
 
 #options-slider {
 	width: 30vw;
-
 }
 
+/* Modes */
+.checkbox{
+	position: absolute;
+	opacity: 0%;
+	z-index: 1;
+	height: 28px;
+	width: 28px;
+}
+
+.boxChecked {
+	transform: scale(1.4);
+	background-color: var(--primaryWhite);
+	filter: drop-shadow(0 0 4px var(--primaryBlack));
+}
 
 /* Color Picker */
 #options-color-picker {
@@ -132,7 +143,7 @@
 }
 
 /* Brushes (Radio/Icons) */
-.radio{
+.radio {
 	height: 34px;
 	width: 34px;
 	position: absolute;
@@ -146,41 +157,39 @@
 	filter: drop-shadow(0 0 4px var(--primaryBlack));
 }
 
-
 /* Slider */
-#options-slider-range{
+#options-slider-range {
 	width: 20vw;
 	height: 5vh;
 }
 
 #options-slider-label,
-#options-slider-text{
+#options-slider-text {
 	text-align: center;
 	font-size: 12pt;
 }
 
 /* Grid */
-.grid-cell{
+.grid-cell {
 	background-color: var(--primaryWhite);
 	border: solid 1px;
 	border-radius: 4px;
 }
 
-.grid-cell:hover{
+.grid-cell:hover {
 	border: solid var(--primaryBlack);
 }
 
-
 /* Footer */
-#reset-grid{
+#reset-grid {
 	background-color: var(--secondaryWhite);
 	border: solid var(--primaryBlack) 4px;
 	border-radius: 8px;
-	padding: 0 4px 0 0 ;
+	padding: 0 4px 0 0;
 	transition: 200ms;
 }
 
-#reset-grid:hover{
+#reset-grid:hover {
 	transform: scale(1.1);
 }
 
@@ -188,7 +197,6 @@
 #reset-text {
 	user-select: none;
 }
-
 
 /* Mobile First => Desktop Second */
 @media screen and (min-width: 800px) {
@@ -198,10 +206,10 @@
 		height: 80vh;
 	}
 
-	#footer-container{
+	#footer-container {
 		height: 10vh;
 	}
-	
+
 	#options-container {
 		flex-direction: column;
 		height: 80vh;
@@ -215,9 +223,9 @@
 	}
 
 	/* Options Containers */
-	#options-modes{
+	#options-modes {
 		flex-direction: row;
-		height: calc(80vh * 0.10);
+		height: calc(80vh * 0.1);
 		width: calc(100vw * 0.15);
 	}
 
@@ -228,7 +236,7 @@
 
 	#options-brushes {
 		flex-direction: column;
-		height: calc(80vh * 0.40);
+		height: calc(80vh * 0.4);
 		width: calc(100vw * 0.15);
 	}
 
@@ -253,5 +261,4 @@
 	#options-slider-text {
 		font-size: 14pt;
 	}
-
 }
