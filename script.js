@@ -1,219 +1,241 @@
-/* Initialization */
-// Declare Constants
+// Front End Declarations
+// Grid
 const gridContainer = document.getElementById('grid-container');
 
-const sliderRange = document.getElementById('options-slider-range');
-const sliderText = document.getElementById('options-slider-text');
-
-const colorPicker = document.getElementById('options-color-picker');
-
-const pencilButtonRadio = document.getElementById('radio-pencil-button');
-const pencilButtonIcon = document.getElementById('radio-pencil-label');
-
-const paintButtonRadio = document.getElementById('radio-paint-button');
-const paintButtonIcon = document.getElementById('radio-paint-label');
-
-const eraserButtonRadio = document.getElementById('radio-clear-button');
-const eraserButtonIcon = document.getElementById('radio-clear-label');
-
-const resetButton = document.getElementById('reset-grid');
-
+// Modes
 const shadeCheckbox = document.getElementById('mode-shade-checkbox');
 const shadeIcon = document.getElementById('mode-shade-button');
 
 const rainbowCheckbox = document.getElementById('mode-rainbow-checkbox');
 const rainbowIcon = document.getElementById('mode-rainbow-button');
 
-const modes = ['standard', 'shade', 'rainbow'];
+// Color Picker
+const colorPicker = document.getElementById('options-color-picker');
 
-let currentBrush, currentColor, gridCells, toggleOn, mode;
+// Brushes
+const pencilRadio = document.getElementById('radio-pencil-button');
+const pencilIcon = document.getElementById('radio-pencil-icon');
 
-// Declare Functions
-function makeGrid(n) {
-	let num = n * n;
-	for (let i = 0; i < num; i++) {
-		let gridCell = document.createElement('div');
-		gridCell.classList.add('grid-cell', 'pointer');
-		gridCell.addEventListener('click', fillGrid);
-		gridContainer.appendChild(gridCell);
-	}
-	gridContainer.style.gridTemplateColumns = `repeat(${n},1fr)`;
-	gridContainer.style.gridTemplateRows = `repeat(${n},1fr)`;
+const paintRadio = document.getElementById('radio-paint-button');
+const paintIcon = document.getElementById('radio-paint-icon');
 
-	updateBrush();
-}
+const eraserRadio = document.getElementById('radio-clear-button');
+const eraserIcon = document.getElementById('radio-clear-icon');
 
-function clearGrid() {
-	gridContainer.innerHTML = null;
-}
+// Slider
+const sliderRange = document.getElementById('options-slider-range');
+const sliderText = document.getElementById('options-slider-text');
 
-function updateSliderText(e) {
-	sliderText.innerText = `${sliderRange.value} x ${sliderRange.value}`;
-}
+// Reset
+const resetButton = document.getElementById('reset-grid');
 
-function updateGrid(e) {
-	clearGrid();
-	makeGrid(e.target.value);
-	toggleOn = false;
-}
+// Backend Declarations
+const paintMode = ['standard', 'shade', 'rainbow'];
+const brushRadio = [pencilRadio.id, paintRadio.id, eraserRadio.id];
 
-function togglePaint() {
-	paintButtonIcon.classList.add('radioChecked');
-	pencilButtonIcon.classList.remove('radioChecked');
-	eraserButtonIcon.classList.remove('radioChecked');
-}
+// Initialize Objects
+const shadeMode = {
+	enabled: (shadeCheckbox.checked = false),
+	toggle: () => {
+		shadeMode.enabled = !shadeMode.enabled;
+		shadeIcon.classList.toggle('boxChecked');
+		rainbowMode.enabled = rainbowCheckbox.checked = false;
+		rainbowIcon.classList.remove('boxChecked');
 
-function togglePencil() {
-	paintButtonIcon.classList.remove('radioChecked');
-	pencilButtonIcon.classList.add('radioChecked');
-	eraserButtonIcon.classList.remove('radioChecked');
-}
+		shadeCheckbox.checked ? currentState.updateMode(paintMode[1])
+			: rainbowCheckbox.checked ? currentState.updateMode(paintMode[2])
+				: currentState.updateMode(paintMode[0]);
+	},
+};
 
-function toggleEraser() {
-	paintButtonIcon.classList.remove('radioChecked');
-	pencilButtonIcon.classList.remove('radioChecked');
-	eraserButtonIcon.classList.add('radioChecked');
-}
+const rainbowMode = {
+	enabled: (rainbowCheckbox.checked = false),
+	toggle: () => {
+		rainbowMode.enabled = !rainbowMode.enabled;
+		rainbowIcon.classList.toggle('boxChecked');
+		shadeMode.enabled = shadeCheckbox.checked = false;
+		shadeIcon.classList.remove('boxChecked');
 
-function checkRadio() {
-	let radios = [pencilButtonRadio, paintButtonRadio, eraserButtonRadio];
-	radios.forEach((radio) => {
-		if (radio.checked === true) {
-			selectedRadio = radio;
+		rainbowCheckbox.checked ? currentState.updateMode(paintMode[2])
+			: shadeCheckbox.checked ? currentState.updateMode(paintMode[1])
+				: currentState.updateMode(paintMode[0]);
+	},
+};
+
+const colorObj = {
+	color: (colorPicker.value = '#ACACAC'),
+	updateColor: () => {
+		colorObj.color = colorPicker.value.toUpperCase();
+		currentState.updateColor(colorObj.color);
+	},
+};
+
+const pencilButton = {
+	enabled: (pencilRadio.checked = true),
+	toggle: () => {
+		pencilButton.enabled = !pencilButton.enabled;
+		pencilIcon.classList.add('radioChecked');
+		paintIcon.classList.remove('radioChecked');
+		eraserIcon.classList.remove('radioChecked');
+		currentState.updateBrush(brushRadio[0]);
+		currentState.updateColor(colorObj.color);
+		currentState.updatePainting(false);
+	},
+};
+
+const paintButton = {
+	enabled: (paintRadio.checked = false),
+	toggle: () => {
+		paintButton.enabled = !paintButton.enabled;
+		pencilIcon.classList.remove('radioChecked');
+		paintIcon.classList.add('radioChecked');
+		eraserIcon.classList.remove('radioChecked');
+		currentState.updateBrush(brushRadio[1]);
+		currentState.updateColor(colorObj.color);
+		currentState.updatePainting(true);
+	},
+};
+
+const eraserButton = {
+	enabled: (eraserRadio.checked = false),
+	toggle: () => {
+		eraserButton.enabled = !eraserButton.enabled;
+		pencilIcon.classList.remove('radioChecked');
+		paintIcon.classList.remove('radioChecked');
+		eraserIcon.classList.add('radioChecked');
+		currentState.updateBrush(brushRadio[2]);
+		currentState.updateColor('#E6E6E6');
+		currentState.updatePainting(false);
+	},
+};
+
+const gridSlider = {
+	min: (sliderRange.min = 2),
+	max: (sliderRange.max = 64),
+	value: (sliderRange.value = 8),
+	init: () => {
+		sliderText.innerText = `${gridSlider.value} x ${gridSlider.value}`;
+	},
+	update: () => {
+		gridSlider.value = parseInt(sliderRange.value);
+		sliderText.innerText = `${gridSlider.value} x ${gridSlider.value}`;
+		currentState.updateGrid(gridSlider.value);
+	},
+};
+
+const currentState = {
+	mode: paintMode[0],
+	color: colorObj.color,
+	brush: brushRadio[0],
+	grid: gridSlider.value,
+	painting: false,
+	init: () => {
+		pencilButton.toggle();
+	},
+	updateMode: (mode) => {
+		currentState.mode = mode;
+	},
+	updateColor: (color) => {
+		currentState.color = color;
+	},
+	updateBrush: (brush) => {
+		currentState.brush = brush;
+	},
+	updateGrid: (grid) => {
+		currentState.grid = grid;
+	},
+	updatePainting: (painting) => {
+		currentState.painting = painting;
+		let gridCells = document.querySelectorAll('.grid-cell');
+		if (painting == true) {
+			gridCells.forEach(cell => {
+				cell.removeEventListener('click', grid.fillGrid);
+				cell.addEventListener('click', grid.paintGrid);
+			});
+			grid.toggle = false;
 		}
-	});
-	return selectedRadio.id;
-}
-
-function updateRadio(e) {
-	currentBrush = checkRadio();
-	updateColor(currentBrush);
-	updateBrush();
-	toggleOn = true;
-	togglePaintBrush(e);
-}
-
-function updateColor(brush) {
-	brush === eraserButtonRadio.id
-		? (currentColor = '#e6e6e6')
-		: (currentColor = colorPicker.value);
-}
-
-function updateColorPicker() {
-	currentColor = colorPicker.value;
-}
-
-function fillGrid(e) {
-	e.target.style.backgroundColor = currentColor;
-}
-
-function resetGrid() {
-	clearGrid();
-	makeGrid(sliderRange.value);
-}
-
-function updateBrush() {
-	gridCells = document.querySelectorAll('.grid-cell');
-	switch (currentBrush) {
-		case 'radio-pencil-button':
-		case 'radio-clear-button':
-			gridCells.forEach((cell) => {
-				cell.addEventListener('click', fillGrid);
+		else {
+			gridCells.forEach(cell => {
+				cell.addEventListener('click', grid.fillGrid);
 			});
-			gridCells.forEach((cell) => {
-				cell.removeEventListener('click', togglePaintBrush);
+			gridCells.forEach(cell => {
+				cell.removeEventListener('mouseover', grid.fillGrid);
+				cell.removeEventListener('click', grid.paintGrid);
 			});
-			break;
-		case 'radio-paint-button':
-			gridCells.forEach((cell) => {
-				cell.removeEventListener('click', fillGrid);
-			});
-			gridCells.forEach((cell) => {
-				cell.addEventListener('click', togglePaintBrush);
-			});
-			break;
+		}
 	}
-}
+};
 
-function togglePaintBrush(e) {
-	if (toggleOn == false) {
-		e.target.style.backgroundColor = currentColor;
-		gridCells.forEach((cell) => {
-			cell.addEventListener('mouseover', fillGrid);
-		});
-		toggleOn = true;
-	} else {
-		gridCells.forEach((cell) => {
-			cell.removeEventListener('mouseover', fillGrid);
-		});
-		toggleOn = false;
+const grid = {
+	container: gridContainer,
+	dim: currentState.grid,
+	toggle: false,
+	init: (dim) => {
+		let size = dim * dim;
+		for (let i = 0; i < size; i++) {
+			let gridCell = document.createElement('div');
+			gridCell.classList.add('grid-cell', 'pointer');
+			grid.container.appendChild(gridCell);
+			gridCell.addEventListener('click', grid.fillGrid);
+		}
+		grid.container.style.gridTemplateColumns = `repeat(${dim},1fr)`;
+		grid.container.style.gridTemplateRows = `repeat(${dim},1fr)`;
+	},
+	clear: () => {
+		grid.container.innerText = null;
+
+	},
+	update: (e) => {
+		grid.dim = currentState.grid = e.target.value;
+		grid.clear();
+		grid.init(e.target.value);
+
+	},
+	reset: () => {
+		grid.clear();
+		init();
+		pencilButton.toggle();
+	},
+	fillGrid: (e) => {
+		e.target.style.backgroundColor = currentState.color;
+	},
+	paintGrid: (e) => {
+		grid.toggle = !grid.toggle;
+		if (grid.toggle == true) {
+			let gridCells = document.querySelectorAll('.grid-cell');
+			grid.fillGrid(e);
+			gridCells.forEach(cell => {
+				cell.addEventListener('mouseover', grid.fillGrid);
+			});
+		}
+		if (grid.toggle == false) {
+			let gridCells = document.querySelectorAll('.grid-cell');
+			gridCells.forEach(cell => {
+				cell.removeEventListener('mouseover', grid.fillGrid);
+			});
+		}
 	}
+};
+
+function init() {
+	currentState.init();
+	gridSlider.init();
+	grid.init(currentState.grid);
+
+	shadeCheckbox.addEventListener('click', shadeMode.toggle);
+	rainbowCheckbox.addEventListener('click', rainbowMode.toggle);
+
+	colorPicker.addEventListener('change', colorObj.updateColor);
+
+	pencilRadio.addEventListener('click', pencilButton.toggle);
+	paintRadio.addEventListener('click', paintButton.toggle);
+	eraserRadio.addEventListener('click', eraserButton.toggle);
+
+	sliderRange.addEventListener('mousemove', gridSlider.update);
+	sliderRange.addEventListener('change', grid.update);
+
+	resetButton.addEventListener('click', grid.reset);
+
 }
 
-function checkShadeBox() {
-	rainbowCheckbox.checked = false;
-	rainbowIcon.classList.remove('boxChecked');
-	shadeCheckbox.checked ? shadeIcon.classList.add('boxChecked')
-	: shadeIcon.classList.remove('boxChecked');
-	updateMode();
-}
-
-function checkRainbowBox() {
-	shadeCheckbox.checked = false;
-	shadeIcon.classList.remove('boxChecked');
-	rainbowCheckbox.checked ? rainbowIcon.classList.add('boxChecked')
-	: rainbowIcon.classList.remove('boxChecked');
-	updateMode();
-}
-
-function updateMode() {
-	mode = (shadeCheckbox.checked) ? modes[1]
-	: (rainbowCheckbox.checked) ? modes[2]
-	: modes[0];
-}
-
-// Event Listeners
-sliderRange.addEventListener('change', updateGrid);
-
-sliderRange.addEventListener('change', updateSliderText);
-sliderRange.addEventListener('mousemove', updateSliderText);
-sliderRange.addEventListener('touchmove', updateSliderText);
-
-pencilButtonRadio.addEventListener('click', togglePencil);
-paintButtonRadio.addEventListener('click', togglePaint);
-eraserButtonRadio.addEventListener('click', toggleEraser);
-
-pencilButtonRadio.addEventListener('change', updateRadio);
-paintButtonRadio.addEventListener('change', updateRadio);
-eraserButtonRadio.addEventListener('change', updateRadio);
-
-colorPicker.addEventListener('change', updateColorPicker);
-
-resetButton.addEventListener('click', resetGrid);
-
-shadeCheckbox.addEventListener('click', checkShadeBox);
-rainbowCheckbox.addEventListener('click', checkRainbowBox);
-
-// Initialize GUI
-toggleOn = false;
-sliderRange.min = 2;
-sliderRange.max = 64;
-sliderRange.value = 8;
-
-colorPicker.value = '#ACACAC';
-
-sliderText.innerText = `${sliderRange.value} x ${sliderRange.value}`;
-
-pencilButtonRadio.checked = true;
-pencilButtonIcon.classList.add('radioChecked');
-
-currentColor = colorPicker.value;
-currentBrush - pencilButtonRadio.id;
-
-mode = modes[0];
-
-makeGrid(sliderRange.value);
-
-// testing
-
-
+init();
