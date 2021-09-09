@@ -189,7 +189,7 @@ const grid = {
 		grid.dim = currentState.grid = e.target.value;
 		grid.clear();
 		grid.init(e.target.value);
-
+		grid.reset();
 	},
 	reset: () => {
 		grid.clear();
