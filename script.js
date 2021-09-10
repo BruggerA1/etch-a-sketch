@@ -63,6 +63,7 @@ const rainbowMode = {
 };
 
 const colorObj = {
+	default: '#ACACAC',
 	color: (colorPicker.value = '#ACACAC'),
 	updateColor: () => {
 		colorObj.color = colorPicker.value.toUpperCase();
@@ -111,7 +112,7 @@ const eraserButton = {
 
 const gridSlider = {
 	min: (sliderRange.min = 2),
-	max: (sliderRange.max = 64),
+	max: (sliderRange.max = 24),
 	value: (sliderRange.value = 8),
 	init: () => {
 		sliderText.innerText = `${gridSlider.value} x ${gridSlider.value}`;
@@ -174,6 +175,7 @@ const grid = {
 		let size = dim * dim;
 		for (let i = 0; i < size; i++) {
 			let gridCell = document.createElement('div');
+			gridCell.style.backgroundColor = '#FFFFFF';
 			gridCell.classList.add('grid-cell', 'pointer');
 			grid.container.appendChild(gridCell);
 			gridCell.addEventListener('click', grid.fillGrid);
@@ -187,17 +189,46 @@ const grid = {
 	},
 	update: (e) => {
 		grid.dim = currentState.grid = e.target.value;
-		grid.clear();
 		grid.init(e.target.value);
 		grid.reset();
 	},
 	reset: () => {
 		grid.clear();
 		init();
-		pencilButton.toggle();
+		switch(currentState.mode){
+			case paintMode[0]:
+				break;
+			case paintMode[1]:
+				shadeMode.toggle();
+				break;
+			case paintMode[2]:
+				rainbowMode.toggle();
+				break;
+		}
+		currentState.updateBrush(brushRadio[0]);
+		currentState.updateMode(paintMode[0]);
+		currentState.updateColor(colorObj.default);
+		colorPicker.value = colorObj.default;
 	},
 	fillGrid: (e) => {
-		e.target.style.backgroundColor = currentState.color;
+		if (currentState.brush == brushRadio[2]){
+			e.target.style.backgroundColor = '#FFFFFF';
+		}
+		else{
+			switch(currentState.mode){
+				case (paintMode[0]):
+					e.target.style.backgroundColor = currentState.color;
+					break;
+				case (paintMode[1]):
+					let preColor = e.target.style.backgroundColor;
+					let postColor = (preColor.slice(4, (preColor.length - 1))).split(",");
+					e.target.style.backgroundColor = `rgb(${(parseInt(postColor[0])-20)}, ${(parseInt(postColor[1])-20)}, ${(parseInt(postColor[2])-20)})`;
+					break;
+				case (paintMode[2]):
+					e.target.style.backgroundColor = `rgb(${Math.floor(256*Math.random())}, ${Math.floor(256*Math.random())}, ${Math.floor(256*Math.random())})`;
+					break;
+			}	
+		}
 	},
 	paintGrid: (e) => {
 		grid.toggle = !grid.toggle;
