@@ -222,7 +222,7 @@ const grid = {
 				case (paintMode[1]):
 					let preColor = e.target.style.backgroundColor;
 					let postColor = (preColor.slice(4, (preColor.length - 1))).split(",");
-					e.target.style.backgroundColor = `rgb(${(parseInt(postColor[0])-20)}, ${(parseInt(postColor[1])-20)}, ${(parseInt(postColor[2])-20)})`;
+					e.target.style.backgroundColor = `rgb(${(parseInt(0.9*postColor[0]))}, ${(parseInt(0.9*postColor[1]))}, ${(parseInt(0.9*postColor[2]))})`;
 					break;
 				case (paintMode[2]):
 					e.target.style.backgroundColor = `rgb(${Math.floor(256*Math.random())}, ${Math.floor(256*Math.random())}, ${Math.floor(256*Math.random())})`;
