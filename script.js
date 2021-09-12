@@ -45,7 +45,7 @@ const shadeMode = {
 		shadeCheckbox.checked ? currentState.updateMode(paintMode[1])
 			: rainbowCheckbox.checked ? currentState.updateMode(paintMode[2])
 				: currentState.updateMode(paintMode[0]);
-	},
+	}
 };
 
 const rainbowMode = {
@@ -59,7 +59,7 @@ const rainbowMode = {
 		rainbowCheckbox.checked ? currentState.updateMode(paintMode[2])
 			: shadeCheckbox.checked ? currentState.updateMode(paintMode[1])
 				: currentState.updateMode(paintMode[0]);
-	},
+	}
 };
 
 const colorObj = {
@@ -132,6 +132,8 @@ const currentState = {
 	painting: false,
 	init: () => {
 		pencilButton.toggle();
+		rainbowCheckbox.checked = false;
+		shadeCheckbox.checked = false;
 	},
 	updateMode: (mode) => {
 		currentState.mode = mode;
